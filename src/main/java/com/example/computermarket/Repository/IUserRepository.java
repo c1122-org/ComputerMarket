@@ -1,12 +1,8 @@
-package com.example.computermarket.Service;
+package com.example.computermarket.Repository;
 
 import com.example.computermarket.Model.User;
 
-import java.util.List;
-
-public interface IComputerService {
+public interface IUserRepository {
     void register(User user);
     User login(String email, String password);
-
-
 }
