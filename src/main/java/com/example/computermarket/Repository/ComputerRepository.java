@@ -4,7 +4,10 @@ import com.example.computermarket.Model.Computer;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ComputerRepository implements IComputerRepository{
     private static final String CREATE = "";
@@ -46,5 +49,30 @@ public class ComputerRepository implements IComputerRepository{
             e.printStackTrace();
         }
         return rowUpdate;
+    }
+
+    @Override
+    public List<Computer> findAll() {
+        List<Computer> computerList = new ArrayList<>();
+        PreparedStatement preparedStatement =null;
+        try {
+            preparedStatement = DBRepository.getConnection().
+                    prepareStatement("select * from computer");
+            ResultSet resultSet =preparedStatement.executeQuery();
+            Computer computer;
+            while (resultSet.next()) {
+                computer = new Computer();
+                computer.setId(resultSet.getInt("id_cp"));
+                computer.setName(resultSet.getString("name"));
+                computer.setPrice(resultSet.getDouble("price"));
+                computer.setProducer(resultSet.getString("producer"));
+                computer.setCountry(resultSet.getString("country"));
+                computer.setDescribe(resultSet.getString("describe"));
+                computerList.add(computer);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return computerList;
     }
 }

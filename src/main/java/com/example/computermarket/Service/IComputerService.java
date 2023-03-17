@@ -10,5 +10,6 @@ public interface IComputerService {
     User login(String email, String password);
     boolean create (Computer computer);
     boolean update(Computer computer);
+    List<Computer> findAll();
 
 }
