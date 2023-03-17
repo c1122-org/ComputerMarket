@@ -7,6 +7,8 @@ import com.example.computermarket.Repository.IComputerRepository;
 import com.example.computermarket.Repository.IUserRepository;
 import com.example.computermarket.Repository.UserRepository;
 
+import java.util.List;
+
 public class ComputerService implements  IComputerService{
     IComputerRepository iComputerRepository = new ComputerRepository();
     IUserRepository userRepository=new UserRepository();
@@ -21,6 +23,16 @@ public class ComputerService implements  IComputerService{
     }
 
     @Override
+    public List<Computer> findAll() {
+        return iComputerRepository.findAll();
+    }
+
+    @Override
+    public Computer findById(int id) {
+        return iComputerRepository.findById(id);
+    }
+
+    @Override
     public boolean create(Computer computer) {
 
         return iComputerRepository.create(computer);
@@ -29,5 +41,10 @@ public class ComputerService implements  IComputerService{
     @Override
     public boolean update(Computer computer) {
         return iComputerRepository.update(computer);
+    }
+
+    @Override
+    public List<Computer> findAll() {
+        return iComputerRepository.findAll();
     }
 }
