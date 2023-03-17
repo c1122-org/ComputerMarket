@@ -20,6 +20,10 @@ public class ComputerRepository implements IComputerRepository {
     private static final String SELECT_ALL_COMPUTER = "";
 
     @Override
+
+    public boolean create(Computer computer) {
+        Connection connection = DBConnection.getConnection();
+
     public List<Computer> findAll() {
         Connection connection = DBConnection.getConnection();
         PreparedStatement statement = null;
