@@ -5,6 +5,8 @@ import com.example.computermarket.Model.Computer;
 import java.util.List;
 
 public interface IComputerRepository {
+    List<Computer> findAll();
+    Computer findById(int id);
     boolean create(Computer computer);
     boolean update(Computer computer);
 

@@ -23,6 +23,16 @@ public class ComputerService implements  IComputerService{
     }
 
     @Override
+    public List<Computer> findAll() {
+        return iComputerRepository.findAll();
+    }
+
+    @Override
+    public Computer findById(int id) {
+        return iComputerRepository.findById(id);
+    }
+
+    @Override
     public boolean create(Computer computer) {
 
         return iComputerRepository.create(computer);

@@ -7,25 +7,29 @@ public class Computer {
     private String producer;
     private String country;
     private String describe;
+    private String img;
 
     public Computer() {
+
     }
 
-    public Computer(int id, String name, double price, String producer, String country, String describe) {
+    public Computer(int id, String name, double price, String producer, String country, String describe, String img) {
         this.id = id;
         this.name = name;
         this.price = price;
         this.producer = producer;
         this.country = country;
         this.describe = describe;
+        this.img = img;
     }
 
-    public Computer(String name, double price, String producer, String country, String describe) {
+    public Computer(String name, double price, String producer, String country, String describe, String img) {
         this.name = name;
         this.price = price;
         this.producer = producer;
         this.country = country;
         this.describe = describe;
+        this.img = img;
     }
 
     public int getId() {
@@ -74,5 +78,11 @@ public class Computer {
 
     public void setDescribe(String describe) {
         this.describe = describe;
+    }
+    public String getImg(){
+        return img;
+    }
+    public void setImg(String img){
+        this.img = img;
     }
 }
