@@ -1,5 +1,6 @@
 package com.example.computermarket.Repository;
 
+import com.example.computermarket.Controller.DBConnection;
 import com.example.computermarket.Model.Computer;
 
 import java.sql.Connection;
@@ -11,7 +12,7 @@ public class ComputerRepository implements IComputerRepository{
     private static final String UPDATE = "";
     @Override
     public boolean create(Computer computer) {
-        Connection connection = DBRepository.getConnection();
+        Connection connection = DBConnection.getConnection();
 
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(CREATE);
@@ -32,7 +33,7 @@ public class ComputerRepository implements IComputerRepository{
     @Override
     public boolean update(Computer computer) {
         boolean rowUpdate = false;
-        Connection connection = DBRepository.getConnection();
+        Connection connection = DBConnection.getConnection();
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(UPDATE);
 
