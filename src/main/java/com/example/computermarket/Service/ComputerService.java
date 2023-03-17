@@ -7,7 +7,10 @@ import com.example.computermarket.Repository.IComputerRepository;
 import com.example.computermarket.Repository.IUserRepository;
 import com.example.computermarket.Repository.UserRepository;
 
+
 import java.sql.SQLException;
+
+
 import java.util.List;
 
 public class ComputerService implements  IComputerService{
@@ -24,6 +27,16 @@ public class ComputerService implements  IComputerService{
     }
 
     @Override
+    public List<Computer> findAll() {
+        return iComputerRepository.findAll();
+    }
+
+    @Override
+    public Computer findById(int id) {
+        return iComputerRepository.findById(id);
+    }
+
+    @Override
     public boolean create(Computer computer) {
 
         return iComputerRepository.create(computer);
@@ -35,6 +48,7 @@ public class ComputerService implements  IComputerService{
     }
 
     @Override
+
     public Computer findById(int id) throws SQLException {
             return iComputerRepository.findById(id);
     }
@@ -48,4 +62,9 @@ public class ComputerService implements  IComputerService{
     public void deleteComputer(int id) {
         iComputerRepository.deleteComputer(id);
     }
+
+    public List<Computer> findAll() {
+        return iComputerRepository.findAll();
+    }
+
 }
