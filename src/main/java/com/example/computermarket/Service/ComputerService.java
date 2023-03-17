@@ -7,6 +7,8 @@ import com.example.computermarket.Repository.IComputerRepository;
 import com.example.computermarket.Repository.IUserRepository;
 import com.example.computermarket.Repository.UserRepository;
 
+import java.util.List;
+
 public class ComputerService implements  IComputerService{
     IComputerRepository iComputerRepository = new ComputerRepository();
     IUserRepository userRepository=new UserRepository();
@@ -18,6 +20,16 @@ public class ComputerService implements  IComputerService{
     @Override
     public User login(String email, String password) {
         return userRepository.login(email,password);
+    }
+
+    @Override
+    public List<Computer> findAll() {
+        return iComputerRepository.findAll();
+    }
+
+    @Override
+    public Computer findById(int id) {
+        return iComputerRepository.findById(id);
     }
 
     @Override
