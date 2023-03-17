@@ -42,4 +42,9 @@ public class ComputerService implements  IComputerService{
     public boolean update(Computer computer) {
         return iComputerRepository.update(computer);
     }
+
+    @Override
+    public List<Computer> findAll() {
+        return iComputerRepository.findAll();
+    }
 }
