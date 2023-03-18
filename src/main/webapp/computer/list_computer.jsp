@@ -31,19 +31,22 @@
     </tr>
     </thead>
     <tbody>
-    <c:forEach items="${computerList}" var="computer">
+    <c:forEach items="${computerList}" var="computer" >
         <tr>
-            <td scope="row">${computer.id}</td>
-            <td><a href="/computer?action=detail&id=${computer.id}">${computer.name}</a></td>
+            <td>${computer.idPc}</td>
+            <td><a href="/computer?action=detail&id=${computer.idPc}">${computer.name}</a></td>
             <td>${computer.price}</td>
             <td>${computer.producer}</td>
             <td>${computer.country}</td>
             <td>${computer.describe}</td>
-            <td><a href="/computer?action=edit&id=${computer.id}">edit</a></td>
-            <td><a href="/computer?action=delete&id=${computer.id}">delete</a></td>
+            <td>${computer.img}</td>
+            <td>${computer.idUser}</td>
+            <td><a href="/computer?action=edit&id=${computer.idPc}">edit</a></td>
+            <td><a href="/computer?action=delete&id=${computer.idPc}">delete</a></td>
         </tr>
     </c:forEach>
     </tbody>
+    <p><a href="/computer?action=create">create</a></p>
 </table>
 </body>
 </html>

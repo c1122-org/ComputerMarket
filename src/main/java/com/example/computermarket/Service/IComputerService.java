@@ -9,12 +9,12 @@ import java.util.List;
 public interface IComputerService {
     void register(User user);
     User login(String email, String password);
-    boolean create (Computer computer);
+    void create (Computer computer);
     boolean update(Computer computer);
 
     Computer findById(int id) throws SQLException;
 
     List<Computer> findAll();
 
-    void deleteComputer(int id);
+    void deleteComputer(int id) throws SQLException;
 }

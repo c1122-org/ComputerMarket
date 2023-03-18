@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 public interface IComputerRepository {
-    boolean create(Computer computer);
+    void create(Computer computer);
     boolean update(Computer computer);
 
     Computer findById(int id) throws SQLException;

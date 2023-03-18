@@ -11,28 +11,37 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ComputerRepository implements IComputerRepository{
-    private static final String CREATE = "";
+    private static final String CREATE = "insert into pc( name_pc, price_pc, producer_pc,country_pc, describe_pc, img_pc,id_user) values(?, ?, ? ,?, ?, ?,?);";
     private static final String UPDATE = "";
-    private static final String SELECT_DETAILS_PC_BY_ID = "select * from details_pc where  id = ?";
+    private static final String SELECT_DETAILS_PC_BY_ID = "select * from pc where  id = ?";
+    private static final String DELETE_FORM_DETAILS_PC_WHERE_ID_PC = "delete from pc where id_pc = ?;";
 
     @Override
-    public boolean create(Computer computer) {
+    public void create(Computer computer) {
         Connection connection = DBConnection.getConnection();
-
-        try {
-            PreparedStatement preparedStatement = connection.prepareStatement(CREATE);
-            preparedStatement.setInt(1,computer.getId());
-            preparedStatement.setString(2,computer.getName());
-            preparedStatement.setDouble(3,computer.getPrice());
-            preparedStatement.setString(4,computer.getProducer());
-            preparedStatement.setString(5,computer.getCountry());
-            preparedStatement.setString(6,computer.getDescribe());
-            int num = preparedStatement.executeUpdate();
-            return (num==1);
-        }catch (SQLException e){
-            e.printStackTrace();
+        PreparedStatement statement = null;
+        if (connection != null) {
+            try {
+                statement = connection.prepareStatement(CREATE);
+                statement.setString(1, computer.getName());
+                statement.setString(2, computer.getPrice());
+                statement.setString(3, computer.getProducer());
+                statement.setString(4, computer.getCountry());
+                statement.setString(5, computer.getDescribe());
+                statement.setString(6, computer.getImg());
+                statement.setInt(7, computer.getIdUser());
+                statement.executeUpdate();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            } finally {
+                try {
+                    statement.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+                DBConnection.close();
+            }
         }
-        return false;
     }
 
     @Override
@@ -43,7 +52,7 @@ public class ComputerRepository implements IComputerRepository{
             PreparedStatement preparedStatement = connection.prepareStatement(UPDATE);
 
             preparedStatement.setString(1,computer.getName());
-            preparedStatement.setDouble(2,computer.getPrice());
+            preparedStatement.setString(2,computer.getPrice());
             preparedStatement.setString(3,computer.getProducer());
             preparedStatement.setString(4,computer.getCountry());
             preparedStatement.setString(5,computer.getDescribe());
@@ -58,7 +67,7 @@ public class ComputerRepository implements IComputerRepository{
     public Computer findById(int id) throws SQLException {
         List<Computer> list = findAll();
         for (Computer computer : list){
-            if (id == computer.getId()){
+            if (id == computer.getIdPc()){
                 return computer;
             }
         }return  null;
@@ -74,16 +83,18 @@ public class ComputerRepository implements IComputerRepository{
         Computer computer = null;
         if (connection != null){
             try {
-               statement = connection.prepareStatement("select * from details_pc");
+               statement = connection.prepareStatement("select * from pc");
                resultSet = statement.executeQuery();
                while (resultSet.next()){
                    int id = resultSet.getInt("id_pc");
                    String name = resultSet.getString("name_pc");
-                   Double price = resultSet.getDouble("price_pc");
+                   String price = resultSet.getString("price_pc");
                    String producer = resultSet.getString("producer_pc");
                    String country = resultSet.getString("country_pc");
                    String describe = resultSet.getString("describe_pc");
-                   list.add(new Computer(id,name,price,producer,country,describe));
+                   String img = resultSet.getString("img_pc");
+                   int idUser = resultSet.getInt("id_user");
+                   list.add(new Computer(id,name,price,producer,country,describe,img,idUser));
                }
 
             } catch (SQLException e) {
@@ -96,7 +107,23 @@ public class ComputerRepository implements IComputerRepository{
 
     @Override
     public void deleteComputer(int id) throws SQLException {
-        Computer computer = findById(id);
-        
+        Connection connection = DBConnection.getConnection();
+        PreparedStatement statement = null;
+        if (connection != null){
+            try {
+                statement = connection.prepareStatement(DELETE_FORM_DETAILS_PC_WHERE_ID_PC);
+                statement.setInt(1,id);
+                statement.executeUpdate();
+            }catch (RuntimeException e){
+                e.printStackTrace();
+            }finally {
+                try{
+                    statement.close();
+                    connection.close();
+                }catch (RuntimeException e){
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 }

@@ -28,6 +28,9 @@ public class ComputerServlet extends HttpServlet {
                 case "delete":
                     deleteComputer(request,response);
                     break;
+                case "create":
+                    showCreateComputer(request,response);
+                    break;
                 default:
                     listComputer(request,response);
                     break;
@@ -35,13 +38,21 @@ public class ComputerServlet extends HttpServlet {
         }catch (RuntimeException e){
             e.printStackTrace();
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
     }
 
-    private void deleteComputer(HttpServletRequest request, HttpServletResponse response) {
+    private void showCreateComputer(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        response.sendRedirect("/computer/create.jsp");
+    }
+
+    private void deleteComputer(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
         int id = Integer.parseInt(request.getParameter("id"));
         computerService.deleteComputer(id);
+        List<Computer> computerList = computerService.findAll();
+        request.setAttribute("computerList",computerList);
+        request.getRequestDispatcher("/computer/list_computer.jsp").forward(request,response);
+
     }
 
     private void showComputerDetail(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException, ServletException {
@@ -75,10 +86,30 @@ public class ComputerServlet extends HttpServlet {
                 case "detail":
                     computerDetail(request,response);
                     break;
+                case "create":
+                    createComputer(request,response);
+                    break;
+                default:
+                    listComputer(request,response);
+                    break;
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
 
+    }
+
+    private void createComputer(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String name = request.getParameter("name");
+        String price = request.getParameter("price");
+        String producer = request.getParameter("producer");
+        String country = request.getParameter("country");
+        String describe = request.getParameter("describe");
+        String img = request.getParameter("img");
+        int idUser = 1;
+        Computer computer = new Computer(name,price,producer,country,describe,img,idUser);
+        computerService.create(computer);
+        request.setAttribute("computer",computer);
+        request.getRequestDispatcher("/computer/list_computer.jsp").forward(request,response);
     }
 }

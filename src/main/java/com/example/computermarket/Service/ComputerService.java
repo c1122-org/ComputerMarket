@@ -24,9 +24,9 @@ public class ComputerService implements  IComputerService{
     }
 
     @Override
-    public boolean create(Computer computer) {
+    public void create(Computer computer) {
 
-        return iComputerRepository.create(computer);
+        iComputerRepository.create(computer);
     }
 
     @Override
@@ -45,7 +45,7 @@ public class ComputerService implements  IComputerService{
     }
 
     @Override
-    public void deleteComputer(int id) {
+    public void deleteComputer(int id) throws SQLException {
         iComputerRepository.deleteComputer(id);
     }
 }
