@@ -8,8 +8,8 @@ public interface IUserService {
     List<User> findAllUser();
     void insertUser(User user);
     User findUserById(int id);
-    User findUserByName(int name);
+    List<User> findUserByName(String name);
     void update(User user);
     void delete(int id);
-    void sortByName();
+     List<User> sortByName();
 }
