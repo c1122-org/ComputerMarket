@@ -1,4 +1,4 @@
-package com.example.computermarket.Model;
+package com.example.computermarket.model;
 
 public class Computer {
     private int idPc;
@@ -8,9 +8,12 @@ public class Computer {
     private String country;
     private String describe;
     private String img;
+
     private int idUser;
 
+
     public Computer() {
+
     }
 
     public Computer(int idPc, String name, String price, String producer, String country, String describe, String img, int idUser) {
@@ -22,13 +25,6 @@ public class Computer {
         this.describe = describe;
         this.img = img;
         this.idUser = idUser;
-    }
-
-    public Computer(String name, String price, String producer, String country) {
-        this.name = name;
-        this.price = price;
-        this.producer = producer;
-        this.country = country;
     }
 
     public Computer(String name, String price, String producer, String country, String describe, String img, int idUser) {
@@ -105,3 +101,4 @@ public class Computer {
         this.idUser = idUser;
     }
 }
+
