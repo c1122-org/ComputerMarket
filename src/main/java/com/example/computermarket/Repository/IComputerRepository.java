@@ -18,4 +18,8 @@ public interface IComputerRepository {
     List<Computer> findByProducer(String producer);
     List<Computer> sortByProduct();
     List<Computer> findAllPcUser();
+<<<<<<< HEAD
+
+=======
+>>>>>>> e8b82aaabdaee539b44dcb87c3c96a4550894a7f
 }

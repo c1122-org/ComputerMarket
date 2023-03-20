@@ -24,7 +24,11 @@
 <button class="btn btn-outline-danger"><a style="text-decoration: none" href="/user">User list</a></button>
 <button class="btn btn-outline-danger"><a style="text-decoration: none" href="/computer">Home page</a></button>
 
+<<<<<<< HEAD
+<table id="tableUser" class="mt-4 table table-hover table-inverse table-responsive table-bordered border-primary">
+=======
 <table class="mt-4 table table-hover table-inverse table-responsive table-bordered border-primary">
+>>>>>>> e8b82aaabdaee539b44dcb87c3c96a4550894a7f
     <thead class="thead-inverse">
     <tr>
         <th>ID</th>
@@ -50,6 +54,32 @@
     </c:forEach>
     </tbody>
 </table>
+<<<<<<< HEAD
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="../datatables/js/bootstrap.js"></script>
+<script src="../datatables/js/jquery.dataTables.js"></script>
+<script src="../datatables/js/dataTables.bootstrap4.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $('#tableUser').dataTable({
+            'searching': false,
+            'pageLength' : 10
+        })
+    })
+</script>
+
+
+=======
+>>>>>>> e8b82aaabdaee539b44dcb87c3c96a4550894a7f
 <c:if test="${message != null}">
     <p  class="table-borderless display-3 text-danger">${message}</p>
 </c:if>

@@ -10,6 +10,49 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+<<<<<<< HEAD
+
+public class ComputerRepository implements IComputerRepository {
+    private static final String CREATE = "insert into pc( name_pc, price_pc, producer_pc,country_pc, describe_pc, img_pc,id_user)value(?, ?, ? ,?, ?, ?,?);";
+    private static final String SELECT_DETAILS_PC_BY_ID = "select * from pc where  id = ?";
+    private static final String DELETE_FORM_DETAILS_PC_WHERE_ID_PC = "delete from pc where id_pc = ?;";
+    private static final String UPDATE_PC_SQL = "UPDATE pc SET name_pc =?, price_pc = ?, producer_pc = ?, country_pc = ?, describe_pc= ?, img_pc = ? WHERE id_pc = ?;";
+    private static final String SEARCH_BY_PRODUCER = "SELECT * FROM pc WHERE producer_pc LIKE ?";
+    private static final String SORT_BY_PRODUCER = "SELECT * FROM pc ORDER BY producer_pc";
+    private static final String JOIN_USER_PC = "SELECT pc.id_pc, pc.name_pc, pc.price_pc, pc.producer_pc, pc.country_pc, pc.describe_pc, pc.img_pc, user.name, user.phone_number from pc inner join user on pc.id_user = user.id_user;";
+
+    @Override
+    public void create(Computer computer) {
+        Connection connection = DBConnection.getConnection();
+        PreparedStatement statement = null;
+        if (connection != null) {
+            try {
+                statement = connection.prepareStatement(CREATE);
+                statement.setString(1, computer.getName());
+                statement.setString(2, computer.getPrice());
+                statement.setString(3, computer.getProducer());
+                statement.setString(4, computer.getCountry());
+                statement.setString(5, computer.getDescribe());
+                statement.setString(6, computer.getImg());
+                statement.setInt(7, 1);
+                statement.executeUpdate();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            } finally {
+                try {
+                    statement.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+                DBConnection.close();
+            }
+        }
+    }
+
+    @Override
+    public void update(Computer computer) {
+
+=======
 
 public class ComputerRepository implements IComputerRepository {
     private static final String CREATE = "insert into pc( name_pc, price_pc, producer_pc,country_pc, describe_pc, img_pc,id_user)value(?, ?, ? ,?, ?, ?,?);";
@@ -99,17 +142,28 @@ public class ComputerRepository implements IComputerRepository {
 //            e.printStackTrace();
 
     public void create(Computer computer) {
+>>>>>>> e8b82aaabdaee539b44dcb87c3c96a4550894a7f
         Connection connection = DBConnection.getConnection();
         PreparedStatement statement = null;
         if (connection != null) {
             try {
+<<<<<<< HEAD
+                statement = connection.prepareStatement(UPDATE_PC_SQL);
+=======
                 statement = connection.prepareStatement(CREATE);
+>>>>>>> e8b82aaabdaee539b44dcb87c3c96a4550894a7f
                 statement.setString(1, computer.getName());
                 statement.setString(2, computer.getPrice());
                 statement.setString(3, computer.getProducer());
                 statement.setString(4, computer.getCountry());
                 statement.setString(5, computer.getDescribe());
                 statement.setString(6, computer.getImg());
+<<<<<<< HEAD
+                statement.setInt(7, computer.getIdPc());
+                statement.executeUpdate();
+            } catch (SQLException e) {
+                e.printStackTrace();
+=======
                 statement.setInt(7, 1);
                 statement.executeUpdate();
             } catch (SQLException e) {
@@ -121,11 +175,22 @@ public class ComputerRepository implements IComputerRepository {
                     e.printStackTrace();
                 }
                 DBConnection.close();
+>>>>>>> e8b82aaabdaee539b44dcb87c3c96a4550894a7f
             }
         }
     }
 
     @Override
+<<<<<<< HEAD
+    public Computer findById(int id) {
+        List<Computer> list = findAllPcUser();
+        for (Computer computer : list) {
+            if (id == computer.getIdPc()) {
+                return computer;
+            }
+        }
+        return null;
+=======
     public void update(Computer computer) {
 
         Connection connection = DBConnection.getConnection();
@@ -145,6 +210,7 @@ public class ComputerRepository implements IComputerRepository {
                 e.printStackTrace();
             }
         }
+>>>>>>> e8b82aaabdaee539b44dcb87c3c96a4550894a7f
     }
 
     @Override
@@ -259,14 +325,24 @@ public class ComputerRepository implements IComputerRepository {
         Connection connection = DBConnection.getConnection();
         PreparedStatement statement = null;
         List<Computer> computerList = new ArrayList<>();
+<<<<<<< HEAD
+        ResultSet resultSet =null;
+=======
         ResultSet resultSet = null;
+>>>>>>> e8b82aaabdaee539b44dcb87c3c96a4550894a7f
         if (connection != null) {
             try {
                 statement = connection.prepareStatement(JOIN_USER_PC);
                 resultSet = statement.executeQuery();
+<<<<<<< HEAD
+                while (resultSet.next()){
+                   int idPc = resultSet.getInt("id_pc");
+                   String name = resultSet.getString("name_pc");
+=======
                 while (resultSet.next()) {
                     int idPc = resultSet.getInt("id_pc");
                     String name = resultSet.getString("name_pc");
+>>>>>>> e8b82aaabdaee539b44dcb87c3c96a4550894a7f
                     String price = resultSet.getString("price_pc");
                     String producer = resultSet.getString("producer_pc");
                     String country = resultSet.getString("country_pc");
@@ -274,7 +350,11 @@ public class ComputerRepository implements IComputerRepository {
                     String img = resultSet.getString("img_pc");
                     String nameUser = resultSet.getString("name");
                     String phoneNumber = resultSet.getString("phone_number");
+<<<<<<< HEAD
+                    User user = new User(nameUser,phoneNumber);
+=======
                     User user = new User(nameUser, phoneNumber);
+>>>>>>> e8b82aaabdaee539b44dcb87c3c96a4550894a7f
                     Computer computer = new Computer(idPc, name, price, producer, country, describe, img, user);
                     computerList.add(computer);
                 }
@@ -287,7 +367,11 @@ public class ComputerRepository implements IComputerRepository {
                 } catch (SQLException e) {
                     throw new RuntimeException(e);
                 }
+<<<<<<< HEAD
+               DBConnection.close();
+=======
                 DBConnection.close();
+>>>>>>> e8b82aaabdaee539b44dcb87c3c96a4550894a7f
             }
         }
         return computerList;
