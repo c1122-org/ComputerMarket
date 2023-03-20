@@ -1,4 +1,4 @@
-package com.example.computermarket.model;
+package com.example.computermarket.Model;
 
 public class Computer {
     private int idPc;
@@ -8,12 +8,29 @@ public class Computer {
     private String country;
     private String describe;
     private String img;
-
     private int idUser;
+    private User user;
+//kiểm tra
+    public Computer(int idPc, String name, String price, String producer, String country, String describe, String img, User user) {
+        this.idPc = idPc;
+        this.name = name;
+        this.price = price;
+        this.producer = producer;
+        this.country = country;
+        this.describe = describe;
+        this.img = img;
+        this.user = user;
+    }
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     public Computer() {
-
     }
 
     public Computer(int idPc, String name, String price, String producer, String country, String describe, String img, int idUser) {
@@ -26,6 +43,15 @@ public class Computer {
         this.img = img;
         this.idUser = idUser;
     }
+    public Computer(int idPc, String name, String price, String producer, String country, String describe, String img) {
+        this.idPc = idPc;
+        this.name = name;
+        this.price = price;
+        this.producer = producer;
+        this.country = country;
+        this.describe = describe;
+        this.img = img;
+    }
 
     public Computer(String name, String price, String producer, String country, String describe, String img, int idUser) {
         this.name = name;
@@ -35,6 +61,14 @@ public class Computer {
         this.describe = describe;
         this.img = img;
         this.idUser = idUser;
+    }
+    public Computer(String name, String price, String producer, String country, String describe, String img) {
+        this.name = name;
+        this.price = price;
+        this.producer = producer;
+        this.country = country;
+        this.describe = describe;
+        this.img = img;
     }
 
     public int getIdPc() {
@@ -100,5 +134,6 @@ public class Computer {
     public void setIdUser(int idUser) {
         this.idUser = idUser;
     }
+
 }
 

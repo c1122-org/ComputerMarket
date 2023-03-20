@@ -11,46 +11,25 @@
 <script src="../bootstrap-5.1.3-dist/js/bootstrap.min.js"></script>
 <html>
 <head>
-    <title>Title</title>
+  <title>Title</title>
 </head>
 <body>
-<div class="container-fluid">
-    <div class="row col-12">
-        <div id="carouselExampleControls" class="carousel slide col-8" data-bs-ride="carousel" style="width: 60%">
-            <div class="carousel-inner">
-                <div class="carousel-item active">
-                    <img src="/img/1.jpg" width=100%>
-                </div>
-                <div class="carousel-item">
-                    <img src="/img/2.jpg" width=100% >
-                </div>
-                <div class="carousel-item">
-                    <img src="/img/3.jpg" width=100%>
-                </div>
-            </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls"
-                    data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls"
-                    data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-            </button>
-        </div>
-        <div class="col-4" style="width: 40%;background: #ffd8f9">
-            <h3>Thông tin chi tiết</h3>
-            <p>Mã sản phẩm : ${computer.idPc}</p>
-            <p>Tên : ${computer.name}</p>
-            <p>Giá : ${computer.producer}</p>
-            <p>Xuất xứ : ${computer.country}</p>
-            <p>Mô tả : ${computer.describe}</p>
-            <p>Ảnh : ${computer.img}</p>
-            <p>ID_User : ${computer.idUser}</p>
-        </div>
-    </div>
-</div>
 
+<div class="row text-primary m-1">
+  <div class="col-6">
+    <h1 class="text-danger">Thông tin chi tiết</h1>
+    <h4>Mã sản phẩm : ${computer.idPc}</h4>
+    <h4>Tên : ${computer.name}</h4>
+    <h4>Giá : ${computer.price}</h4>
+    <h4>Nhà sản xuất : ${computer.producer}</h4>
+    <h4>Xuất xứ : ${computer.country}</h4>
+    <h4>Mô tả : ${computer.describe}</h4>
+    <h4>Tên người đăng : ${computer.user.name}</h4>
+    <h4>Số điện thoại liên hệ : ${computer.user.phoneNumber}</h4>
+  </div>
+  <div class="col-6">
+    <img alt="..." height="390px" class="card-img-top" src="${computer.img}">
+  </div>
+</div>
 </body>
 </html>
