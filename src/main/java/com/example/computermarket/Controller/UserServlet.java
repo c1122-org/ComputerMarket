@@ -47,6 +47,7 @@ public class UserServlet extends HttpServlet {
         }
     }
 
+<<<<<<< HEAD
     /**
      * Function: show register form
      * Create: HoangPT
@@ -59,35 +60,7 @@ public class UserServlet extends HttpServlet {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
-        }
-    }
-
-    /**
-     * Function: log out
-     * Create: HoangPT
-     * Date create: 19/03/2023
-     */
-    private void logout(HttpServletRequest request, HttpServletResponse response) {
-        HttpSession session = request.getSession();
-        session.removeAttribute("nameAccount");
-        Cookie[] cookies = request.getCookies();
-        if (cookies != null) {
-            for (Cookie cookie : cookies) {
-                if (cookie.getName().equals("email") || cookie.getName().equals("password")) {
-                    cookie.setValue("");
-                    cookie.setPath("/");
-                    cookie.setMaxAge(0);
-                    response.addCookie(cookie);
-                }
-            }
-        }
-        try {
-            response.sendRedirect("/computer/list_computer.jsp");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
+=======
     private void sortByName(HttpServletRequest request, HttpServletResponse response) {
         List<User> userList = service.sortByName();
         request.setAttribute("userList", userList);
@@ -139,6 +112,161 @@ public class UserServlet extends HttpServlet {
         }
     }
 
+    private void showDeleteForm(HttpServletRequest request, HttpServletResponse response) {
+        int idUser = Integer.parseInt(request.getParameter("idUser"));
+        User user = service.findUserById(idUser);
+        if (user == null) {
+            try {
+                response.sendRedirect("/user/error-404.jsp");
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        } else {
+            request.setAttribute("user", user);
+            try {
+                request.getRequestDispatcher("/user/delete_user.jsp").forward(request, response);
+            } catch (ServletException e) {
+                throw new RuntimeException(e);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+    private void showUpdateUser(HttpServletRequest request, HttpServletResponse response) {
+        int idUser = Integer.parseInt(request.getParameter("idUser"));
+        User user = service.findUserById(idUser);
+        if (user == null) {
+            try {
+                response.sendRedirect("/user/error-404.jsp");
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        } else {
+            request.setAttribute("user", user);
+            try {
+                request.getRequestDispatcher("/user/edit_user.jsp").forward(request, response);
+            } catch (ServletException e) {
+                throw new RuntimeException(e);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+>>>>>>> e8b82aaabdaee539b44dcb87c3c96a4550894a7f
+        }
+    }
+
+    /**
+     * Function: log out
+     * Create: HoangPT
+     * Date create: 19/03/2023
+     */
+    private void logout(HttpServletRequest request, HttpServletResponse response) {
+        HttpSession session = request.getSession();
+        session.removeAttribute("nameAccount");
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("email") || cookie.getName().equals("password")) {
+                    cookie.setValue("");
+                    cookie.setPath("/");
+                    cookie.setMaxAge(0);
+                    response.addCookie(cookie);
+                }
+            }
+        }
+        try {
+            response.sendRedirect("/computer/list_computer.jsp");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void sortByName(HttpServletRequest request, HttpServletResponse response) {
+        List<User> userList = service.sortByName();
+        request.setAttribute("userList", userList);
+        try {
+            request.getRequestDispatcher("/user/list_user.jsp").forward(request, response);
+        } catch (ServletException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+<<<<<<< HEAD
+    private void searchByName(HttpServletRequest request, HttpServletResponse response) {
+        String name = request.getParameter("name");
+        List<User> userList = service.findUserByName(name);
+
+        if (userList.isEmpty()) {
+            request.setAttribute("message", "Not Found");
+            try {
+                request.getRequestDispatcher("/user/list_user.jsp").forward(request, response);
+            } catch (ServletException e) {
+                throw new RuntimeException(e);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        } else {
+            try {
+                request.setAttribute("userList", userList);
+                request.getRequestDispatcher("/user/list_user.jsp").forward(request, response);
+            } catch (ServletException e) {
+                throw new RuntimeException(e);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+
+    private void showViewUser(HttpServletRequest request, HttpServletResponse response) {
+        int idUser = Integer.parseInt(request.getParameter("idUser"));
+        User user = service.findUserById(idUser);
+        request.setAttribute("user", user);
+        try {
+            request.getRequestDispatcher("/user/view_user.jsp").forward(request, response);
+        } catch (ServletException e) {
+            throw new RuntimeException(e);
+=======
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws
+            ServletException, IOException {
+        String action = request.getParameter("action");
+        request.setCharacterEncoding("UTF-8");
+        response.setContentType("text/html;charset=UTF-8");
+        if (action == null) {
+            action = "";
+        }
+        switch (action) {
+            case "create":
+                break;
+            case "update":
+                updateUser(request, response);
+                break;
+            case "delete":
+                deleteUser(request, response);
+                break;
+            case "search":
+                searchByName(request, response);
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void deleteUser(HttpServletRequest request, HttpServletResponse response) {
+        int idUser = Integer.parseInt(request.getParameter("idUser"));
+        service.delete(idUser);
+        try {
+            response.sendRedirect("/user");
+>>>>>>> e8b82aaabdaee539b44dcb87c3c96a4550894a7f
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+<<<<<<< HEAD
     private void showDeleteForm(HttpServletRequest request, HttpServletResponse response) {
         int idUser = Integer.parseInt(request.getParameter("idUser"));
         User user = service.findUserById(idUser);
@@ -312,12 +440,18 @@ public class UserServlet extends HttpServlet {
         }
     }
 
+=======
+>>>>>>> e8b82aaabdaee539b44dcb87c3c96a4550894a7f
     private void updateUser(HttpServletRequest request, HttpServletResponse response) {
         int idUser = Integer.parseInt(request.getParameter("idUser"));
         String name = request.getParameter("name");
         String email = request.getParameter("email");
         String password = request.getParameter("password");
+<<<<<<< HEAD
         String phoneNumber = request.getParameter("phoneNumber");
+=======
+        String phoneNumber= request.getParameter("phoneNumber");
+>>>>>>> e8b82aaabdaee539b44dcb87c3c96a4550894a7f
         User user = new User(idUser, name, email, password, phoneNumber);
         if (user == null) {
             try {

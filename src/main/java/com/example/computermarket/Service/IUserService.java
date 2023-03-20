@@ -12,9 +12,12 @@ public interface IUserService {
     void update(User user);
     void delete(int id);
      List<User> sortByName();
+<<<<<<< HEAD
 
     User login(String email, String password);
     void register(User user);
 
 
+=======
+>>>>>>> e8b82aaabdaee539b44dcb87c3c96a4550894a7f
 }

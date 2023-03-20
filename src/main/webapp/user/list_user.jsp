@@ -24,7 +24,11 @@
 <button class="btn btn-outline-danger"><a style="text-decoration: none" href="/user">User list</a></button>
 <button class="btn btn-outline-danger"><a style="text-decoration: none" href="/computer">Home page</a></button>
 
+<<<<<<< HEAD
 <table id="tableUser" class="mt-4 table table-hover table-inverse table-responsive table-bordered border-primary">
+=======
+<table class="mt-4 table table-hover table-inverse table-responsive table-bordered border-primary">
+>>>>>>> e8b82aaabdaee539b44dcb87c3c96a4550894a7f
     <thead class="thead-inverse">
     <tr>
         <th>ID</th>
@@ -50,6 +54,7 @@
     </c:forEach>
     </tbody>
 </table>
+<<<<<<< HEAD
 
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -73,6 +78,8 @@
 </script>
 
 
+=======
+>>>>>>> e8b82aaabdaee539b44dcb87c3c96a4550894a7f
 <c:if test="${message != null}">
     <p  class="table-borderless display-3 text-danger">${message}</p>
 </c:if>

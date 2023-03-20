@@ -39,6 +39,7 @@ value ('Apple MacBook Air M1 2020 8GB/256GB/7-core GPU (MGND3SA/A)','15.000.000'
 ('Laptop Lenovo Ideapad 5 Pro 14ITL6 i5 1155G7/8GB/512GB/Win11 (82L300M9VN)', '11.000.000','Lenovo','VN','like new','https://photo-cms-bizlive.epicdn.me/w1200/NSDN/macbookcnn20221220160159_90201.jpg',5),
 ('Laptop HP 240 G9 i5 1235U/8GB/512GB/Win11 (6L1Y2PA)','12.000.000','HP','VN','like new','https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRn76dHejpuhOddpw9PcRzUvePJXHJp-yVqeQ&usqp=CAU',2),
 ('Laptop HP Gaming VICTUS 15 fa0111TX i5 12500H/16GB/512GB/4GB RTX3050Ti/144Hz/Win11 (7C0R4PA)','15.000.000','HP','VN','like new','https://cdn.thesaigontimes.vn/wp-content/uploads/2022/06/ipad.jpg',2),
+<<<<<<< HEAD
 ('Apple MacBook Air M1 2020 8GB/256GB/7-core GPU (MGND3SA/A)', '16.000.000','Apple','VN','like new','https://photo-cms-tpo.epicdn.me/w890/Uploaded/2023/qhj_hiobgobrfc/2020_09_26/phim_tat_tren_may_tinh_0_ANHP.jpg',3);
 SELECT * FROM user;
 SELECT * FROM pc;
@@ -53,3 +54,6 @@ value('Nguyen Van A', 'A@gmail.com','123456'),
 ('Nguyen Van A', 'D@gmail.com','1234567'),
 ('Nguyen Van A', 'B@gmail.com','12345678');
 Select * From user where name = 'Nguyễn Văn E'
+=======
+('Apple MacBook Air M1 2020 8GB/256GB/7-core GPU (MGND3SA/A)', '16.000.000','Apple','VN','like new','https://photo-cms-tpo.epicdn.me/w890/Uploaded/2023/qhj_hiobgobrfc/2020_09_26/phim_tat_tren_may_tinh_0_ANHP.jpg',3);
+>>>>>>> e8b82aaabdaee539b44dcb87c3c96a4550894a7f
