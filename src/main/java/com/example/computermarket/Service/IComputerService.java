@@ -13,6 +13,5 @@ public interface IComputerService {
     Computer findById(int id);
     boolean create (Computer computer);
     boolean update(Computer computer);
-    List<Computer> findAll();
 
 }

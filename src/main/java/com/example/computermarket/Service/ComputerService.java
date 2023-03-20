@@ -9,9 +9,10 @@ import com.example.computermarket.Repository.UserRepository;
 
 import java.util.List;
 
-public class ComputerService implements  IComputerService{
+public class ComputerService implements IComputerService {
     IComputerRepository iComputerRepository = new ComputerRepository();
-    IUserRepository userRepository=new UserRepository();
+    IUserRepository userRepository = new UserRepository();
+
     @Override
     public void register(User user) {
         userRepository.register(user);
@@ -19,12 +20,7 @@ public class ComputerService implements  IComputerService{
 
     @Override
     public User login(String email, String password) {
-        return userRepository.login(email,password);
-    }
-
-    @Override
-    public List<Computer> findAll() {
-        return iComputerRepository.findAll();
+        return userRepository.login(email, password);
     }
 
     @Override

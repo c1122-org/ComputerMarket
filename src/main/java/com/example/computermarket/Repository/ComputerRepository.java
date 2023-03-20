@@ -20,43 +20,41 @@ public class ComputerRepository implements IComputerRepository {
     private static final String SELECT_ALL_COMPUTER = "";
 
     @Override
-    public List<Computer> findAll() {
-        Connection connection = DBConnection.getConnection();
-        PreparedStatement statement = null;
-        ResultSet resultSet = null;
-        List<Computer> computerList = new ArrayList<>();
-        if (connection != null){
-            try {
-                statement = connection.prepareStatement(SELECT_ALL_COMPUTER);
-                resultSet = statement.executeQuery();
-                Computer computer = null;
-                while (resultSet.next()){
-                    int id = resultSet.getInt("id");
-                    String name = resultSet.getString("name");
-                    double price = resultSet.getDouble("price");
-                    String producer = resultSet.getString("producer");
-                    String country = resultSet.getString("country");
-                    String describe = resultSet.getString("describe");
-                    String img = resultSet.getString("img");
-                    computer = new Computer(id,name,price,producer,country,describe,img);
-                    computerList.add(computer);
-                }
-            }catch (SQLException e){
-                e.printStackTrace();
-            }finally {
-                try {
-                    resultSet.close();
-                    statement.close();
-                    DBConnection.close();
-                }catch (SQLException e){
-                    e.printStackTrace();
-                }
-            }
-        }
-        return computerList;
-    }
-
-    @Override
+//    public List<Computer> findAll() {
+//        Connection connection = DBConnection.getConnection();
+//        PreparedStatement statement = null;
+//        ResultSet resultSet = null;
+//        List<Computer> computerList = new ArrayList<>();
+//        if (connection != null){
+//            try {
+//                statement = connection.prepareStatement(SELECT_ALL_COMPUTER);
+//                resultSet = statement.executeQuery();
+//                Computer computer = null;
+//                while (resultSet.next()){
+//                    int id = resultSet.getInt("id");
+//                    String name = resultSet.getString("name");
+//                    double price = resultSet.getDouble("price");
+//                    String producer = resultSet.getString("producer");
+//                    String country = resultSet.getString("country");
+//                    String describe = resultSet.getString("describe");
+//                    String img = resultSet.getString("img");
+//                    computer = new Computer(id,name,price,producer,country,describe,img);
+//                    computerList.add(computer);
+//                }
+//            }catch (SQLException e){
+//                e.printStackTrace();
+//            }finally {
+//                try {
+//                    resultSet.close();
+//                    statement.close();
+//                    DBConnection.close();
+//                }catch (SQLException e){
+//                    e.printStackTrace();
+//                }
+//            }
+//        }
+//        return computerList;
+//    }
     public Computer findById(int id) {
         PreparedStatement preparedStatement = null;
         try {
@@ -178,7 +176,7 @@ public class ComputerRepository implements IComputerRepository {
         List<Computer> computerList = new ArrayList<>();
         PreparedStatement preparedStatement =null;
         try {
-            preparedStatement = DBRepository.getConnection().
+            preparedStatement = DBConnection.getConnection().
                     prepareStatement("select * from computer");
             ResultSet resultSet =preparedStatement.executeQuery();
             Computer computer;

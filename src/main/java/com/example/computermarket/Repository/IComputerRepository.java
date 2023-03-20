@@ -10,5 +10,4 @@ public interface IComputerRepository {
     boolean create(Computer computer);
     boolean update(Computer computer);
 
-    List<Computer> findAll();
 }
