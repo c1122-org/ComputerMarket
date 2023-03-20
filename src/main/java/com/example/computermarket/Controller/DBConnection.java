@@ -6,7 +6,7 @@ import java.sql.SQLException;
 
 public class DBConnection {
     private static final String USER_NAME = "root";
-    private static final String PASSWORD = "hoanghaibk93"; //nhớ đổi mật khẩu
+    private static final String PASSWORD = "0905796054"; //nhớ đổi mật khẩu
     private static final String HOST = "localhost";
     private static final String DATABASE = "computer_market";
     private static final String PORT = "3306";
