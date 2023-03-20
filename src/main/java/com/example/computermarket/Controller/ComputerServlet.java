@@ -44,7 +44,6 @@ public class ComputerServlet extends HttpServlet {
                 break;
         }
     }
-
     private void sortByProducer(HttpServletRequest request, HttpServletResponse response) {
         List<Computer> computerList = computerService.sortByProduct();
         request.setAttribute("computerList", computerList);

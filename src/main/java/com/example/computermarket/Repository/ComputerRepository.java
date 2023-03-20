@@ -20,7 +20,84 @@ public class ComputerRepository implements IComputerRepository {
     private static final String SORT_BY_PRODUCER = "SELECT * FROM pc ORDER BY producer_pc";
     private static final String JOIN_USER_PC = "SELECT pc.id_pc, pc.name_pc, pc.price_pc, pc.producer_pc, pc.country_pc, pc.describe_pc, pc.img_pc, user.name, user.phone_number from pc inner join user on pc.id_user = user.id_user;";
 
+    //    @Override
+//    public List<Computer> findAll() {
+//        Connection connection = DBConnection.getConnection();
+//        PreparedStatement statement = null;
+//        ResultSet resultSet = null;
+//        List<Computer> computerList = new ArrayList<>();
+//        if (connection != null){
+//            try {
+//                statement = connection.prepareStatement(SELECT_ALL_COMPUTER);
+//                resultSet = statement.executeQuery();
+//                Computer computer = null;
+//                while (resultSet.next()){
+//                    int id = resultSet.getInt("id");
+//                    String name = resultSet.getString("name");
+//                    double price = resultSet.getDouble("price");
+//                    String producer = resultSet.getString("producer");
+//                    String country = resultSet.getString("country");
+//                    String describe = resultSet.getString("describe");
+//                    String img = resultSet.getString("img");
+//                    computer = new Computer(id,name,price,producer,country,describe,img);
+//                    computerList.add(computer);
+//                }
+//            }catch (SQLException e){
+//                e.printStackTrace();
+//            }finally {
+//                try {
+//                    resultSet.close();
+//                    statement.close();
+//                    DBConnection.close();
+//                }catch (SQLException e){
+//                    e.printStackTrace();
+//                }
+//            }
+//        }
+//        return computerList;
+//    }
+    public Computer findById(int id) {
+        PreparedStatement preparedStatement = null;
+        try {
+            preparedStatement = DBConnection.getConnection().prepareStatement("");
+            preparedStatement.setInt(1, id);
+            Computer computer;
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                computer = new Computer();
+                computer.setIdPc(resultSet.getInt("id"));
+                computer.setName(resultSet.getString("name"));
+                computer.setPrice(resultSet.getString("price"));
+                computer.setProducer(resultSet.getString("producer"));
+                computer.setCountry(resultSet.getString("country"));
+                computer.setDescribe(resultSet.getString("describe"));
+                computer.setImg(resultSet.getString("img"));
+                return computer;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     @Override
+//    public void create(Computer computer) {
+//        Connection connection = DBConnection.getConnection();
+//
+//        try {
+//            PreparedStatement preparedStatement = connection.prepareStatement(CREATE);
+//            preparedStatement.setInt(1, computer.getId());
+//            preparedStatement.setString(2, computer.getName());
+//            preparedStatement.setDouble(3, computer.getPrice());
+//            preparedStatement.setString(4, computer.getProducer());
+//            preparedStatement.setString(5, computer.getCountry());
+//            preparedStatement.setString(6, computer.getDescribe());
+//            preparedStatement.setString(7, computer.getImg());
+//            int num = preparedStatement.executeUpdate();
+//            return (num == 1);
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+
     public void create(Computer computer) {
         Connection connection = DBConnection.getConnection();
         PreparedStatement statement = null;
@@ -68,17 +145,6 @@ public class ComputerRepository implements IComputerRepository {
                 e.printStackTrace();
             }
         }
-    }
-
-    @Override
-    public Computer findById(int id) {
-        List<Computer> list = findAllPcUser();
-        for (Computer computer : list) {
-            if (id == computer.getIdPc()) {
-                return computer;
-            }
-        }
-        return null;
     }
 
     @Override
@@ -193,14 +259,14 @@ public class ComputerRepository implements IComputerRepository {
         Connection connection = DBConnection.getConnection();
         PreparedStatement statement = null;
         List<Computer> computerList = new ArrayList<>();
-        ResultSet resultSet =null;
+        ResultSet resultSet = null;
         if (connection != null) {
             try {
                 statement = connection.prepareStatement(JOIN_USER_PC);
                 resultSet = statement.executeQuery();
-                while (resultSet.next()){
-                   int idPc = resultSet.getInt("id_pc");
-                   String name = resultSet.getString("name_pc");
+                while (resultSet.next()) {
+                    int idPc = resultSet.getInt("id_pc");
+                    String name = resultSet.getString("name_pc");
                     String price = resultSet.getString("price_pc");
                     String producer = resultSet.getString("producer_pc");
                     String country = resultSet.getString("country_pc");
@@ -208,7 +274,7 @@ public class ComputerRepository implements IComputerRepository {
                     String img = resultSet.getString("img_pc");
                     String nameUser = resultSet.getString("name");
                     String phoneNumber = resultSet.getString("phone_number");
-                    User user = new User(nameUser,phoneNumber);
+                    User user = new User(nameUser, phoneNumber);
                     Computer computer = new Computer(idPc, name, price, producer, country, describe, img, user);
                     computerList.add(computer);
                 }
@@ -221,7 +287,7 @@ public class ComputerRepository implements IComputerRepository {
                 } catch (SQLException e) {
                     throw new RuntimeException(e);
                 }
-               DBConnection.close();
+                DBConnection.close();
             }
         }
         return computerList;
