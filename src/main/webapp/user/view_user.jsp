@@ -16,6 +16,7 @@
 <form class="container-md border-5 table-borderless text-body" method="post" >
     <fieldset>
         <h3 class="text-center text-uppercase mb-4">user information</h3>
+        <button class="btn btn-outline-danger"><a style="text-decoration: none" href="/user">Back to user list</a></button>
         <table class="mt-4 table table-hover table-inverse table-responsive table-bordered border-primary">
             <tbody>
             <tr>

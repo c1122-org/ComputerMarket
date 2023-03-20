@@ -115,9 +115,20 @@ public class ComputerServlet extends HttpServlet {
         }
     }
 
+//    private void listComputer(HttpServletRequest request, HttpServletResponse response) {
+//        List<Computer> computerList = computerService.findAll();
+//        request.setAttribute("computerList", computerList);
+//        try {
+//            request.getRequestDispatcher("/computer/list_computer.jsp").forward(request, response);
+//        } catch (ServletException e) {
+//            throw new RuntimeException(e);
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
+//    }
     private void listComputer(HttpServletRequest request, HttpServletResponse response) {
-        List<Computer> computerList = computerService.findAll();
-        request.setAttribute("computerList", computerList);
+        List<Computer> computerListUser = computerService.findAllPcUser();
+        request.setAttribute("computerList", computerListUser);
         try {
             request.getRequestDispatcher("/computer/list_computer.jsp").forward(request, response);
         } catch (ServletException e) {
@@ -209,7 +220,7 @@ public class ComputerServlet extends HttpServlet {
             }
         } else {
             computerService.update(computer);
-//            request.setAttribute("computer", computer);
+            request.setAttribute("computer", computer);
             request.setAttribute("message", "Update successful");
             try {
                 request.getRequestDispatcher("/computer/update.jsp").forward(request, response);

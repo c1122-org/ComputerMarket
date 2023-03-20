@@ -7,7 +7,6 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<html>
 <head>
     <title>Title</title>
     <link href="../bootstrap-5.1.3-dist/css/bootstrap.min.css" rel="stylesheet" type="text/css">
@@ -16,9 +15,9 @@
 </head>
 <body class="container-lg p-4">
 <h3 class="text-center text-uppercase mb-4">update user</h3>
-<a class="btn btn-outline-primary" href="/user">Back to List user</a>
+<button class="btn btn-outline-danger"><a style="text-decoration: none" href="/user">Back to user list</a></button>
 <c:if test="${message != null}">
-    <p>${message}</p></c:if>
+    <p class="text-success">${message}</p></c:if>
 <form method="post" class="container-md">
     <div class="mb-3">
         <label for="exampleInputName" class="form-label">Name</label>
@@ -35,10 +34,6 @@
     <div class="mb-3">
         <label for="exampleInputPhoneNumber" class="form-label">Phone Number</label>
         <input type="text" class="form-control" id="exampleInputPhoneNumber" name ="phoneNumber" value="${user.phoneNumber}">
-    </div>
-    <div class="mb-3 form-check">
-        <input type="checkbox" class="form-check-input" id="exampleCheck1">
-        <label class="form-check-label" for="exampleCheck1">Check me out</label>
     </div>
     <button type="submit" class="btn btn-primary">Update</button>
 </form>

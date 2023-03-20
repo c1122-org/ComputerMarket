@@ -46,4 +46,9 @@ public class ComputerService implements  IComputerService{
     public List<Computer> sortByProduct() {
         return iComputerRepository.sortByProduct();
     }
+
+    @Override
+    public List<Computer> findAllPcUser() {
+        return iComputerRepository.findAllPcUser();
+    }
 }

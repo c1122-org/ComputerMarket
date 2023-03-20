@@ -23,6 +23,10 @@ public class User {
         this.password = password;
         this.phoneNumber = phoneNumber;
     }
+    public User(String name, String phoneNumber) {
+        this.name = name;
+        this.phoneNumber = phoneNumber;
+    }
 
     public int getIdUser() {
         return idUser;

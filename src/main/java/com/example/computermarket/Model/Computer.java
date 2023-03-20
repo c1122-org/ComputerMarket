@@ -9,6 +9,26 @@ public class Computer {
     private String describe;
     private String img;
     private int idUser;
+    private User user;
+//kiểm tra
+    public Computer(int idPc, String name, String price, String producer, String country, String describe, String img, User user) {
+        this.idPc = idPc;
+        this.name = name;
+        this.price = price;
+        this.producer = producer;
+        this.country = country;
+        this.describe = describe;
+        this.img = img;
+        this.user = user;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     public Computer() {
     }
@@ -114,5 +134,6 @@ public class Computer {
     public void setIdUser(int idUser) {
         this.idUser = idUser;
     }
+
 }
 

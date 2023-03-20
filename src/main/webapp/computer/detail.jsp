@@ -15,20 +15,21 @@
 </head>
 <body>
 
-<div class="row text-primary">
+<div class="row text-primary m-1">
   <div class="col-6">
-    <h3 class="display-3 text-danger">Thông tin chi tiết</h3>
-    <p class="display-6">Mã sản phẩm : ${computer.idPc}</p>
-    <p class="display-6">Tên : ${computer.name}</p>
-    <p class="display-6">Giá : ${computer.price}</p>
-    <p class="display-6">Nhà sản xuất : ${computer.producer}</p>
-    <p class="display-6">Xuất xứ : ${computer.country}</p>
-    <p class="display-6">Mô tả : ${computer.describe}</p>
+    <h1 class="text-danger">Thông tin chi tiết</h1>
+    <h4>Mã sản phẩm : ${computer.idPc}</h4>
+    <h4>Tên : ${computer.name}</h4>
+    <h4>Giá : ${computer.price}</h4>
+    <h4>Nhà sản xuất : ${computer.producer}</h4>
+    <h4>Xuất xứ : ${computer.country}</h4>
+    <h4>Mô tả : ${computer.describe}</h4>
+    <h4>Tên người đăng : ${computer.user.name}</h4>
+    <h4>Số điện thoại liên hệ : ${computer.user.phoneNumber}</h4>
   </div>
   <div class="col-6">
-    <img alt="..." class="card-img-top" src="${computer.img}">
+    <img alt="..." height="390px" class="card-img-top" src="${computer.img}">
   </div>
 </div>
-<a href="/computer?action=update&idPc=${computer.idPc}">Update</a>
 </body>
 </html>

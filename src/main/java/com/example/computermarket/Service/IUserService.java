@@ -12,4 +12,9 @@ public interface IUserService {
     void update(User user);
     void delete(int id);
      List<User> sortByName();
+
+    User login(String email, String password);
+    void register(User user);
+
+
 }

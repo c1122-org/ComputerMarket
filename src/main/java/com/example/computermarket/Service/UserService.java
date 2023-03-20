@@ -44,4 +44,14 @@ public class UserService implements IUserService {
   return repository.sortByName();
     }
 
+    @Override
+    public User login(String email, String password) {
+        return  repository.login(email, password);
+    }
+
+    @Override
+    public void register(User user) {
+repository.register(user);
+    }
+
 }

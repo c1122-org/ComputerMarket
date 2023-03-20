@@ -17,4 +17,5 @@ public interface IComputerService {
     void deleteComputer(int id) ;
     List<Computer> findByProducer(String producer);
     List<Computer> sortByProduct();
+    List<Computer> findAllPcUser();
 }

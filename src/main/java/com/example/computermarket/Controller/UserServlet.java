@@ -23,7 +23,11 @@ public class UserServlet extends HttpServlet {
             action = "";
         }
         switch (action) {
-            case "create":
+            case "register":
+                showCreate(request, response);
+                break;
+            case "logout":
+                logout(request, response);
                 break;
             case "update":
                 showUpdateUser(request, response);
@@ -40,6 +44,47 @@ public class UserServlet extends HttpServlet {
             default:
                 showListUser(request, response);
                 break;
+        }
+    }
+
+    /**
+     * Function: show register form
+     * Create: HoangPT
+     * Date create: 18/03/2023
+     */
+    private void showCreate(HttpServletRequest request, HttpServletResponse response) {
+        try {
+            request.getRequestDispatcher("/view/register.jsp").forward(request, response);
+        } catch (ServletException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Function: log out
+     * Create: HoangPT
+     * Date create: 19/03/2023
+     */
+    private void logout(HttpServletRequest request, HttpServletResponse response) {
+        HttpSession session = request.getSession();
+        session.removeAttribute("nameAccount");
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("email") || cookie.getName().equals("password")) {
+                    cookie.setValue("");
+                    cookie.setPath("/");
+                    cookie.setMaxAge(0);
+                    response.addCookie(cookie);
+                }
+            }
+        }
+        try {
+            response.sendRedirect("/computer/list_computer.jsp");
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
@@ -136,15 +181,25 @@ public class UserServlet extends HttpServlet {
         }
     }
 
-    private void showListUser(HttpServletRequest request, HttpServletResponse response) {
-        List<User> userList = service.findAllUser();
-        request.setAttribute("userList", userList);
-        try {
-            request.getRequestDispatcher("/user/list_user.jsp").forward(request, response);
-        } catch (ServletException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+    private void showListUser(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        HttpSession httpSession = request.getSession();
+        if (httpSession.getAttribute("emailAccount")==null){
+            httpSession.setAttribute("emailAccount","");
+        }
+        if (!httpSession.getAttribute("emailAccount").equals("admin@gmail.com")) {
+            response.sendRedirect("/computer");
+        } else {
+            List<User> userList = service.findAllUser();
+            request.setAttribute("userList", userList);
+
+
+            try {
+                request.getRequestDispatcher("/user/list_user.jsp").forward(request, response);
+            } catch (ServletException e) {
+                throw new RuntimeException(e);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 
@@ -158,7 +213,11 @@ public class UserServlet extends HttpServlet {
             action = "";
         }
         switch (action) {
-            case "create":
+            case "register":
+                create(request, response);
+                break;
+            case "login":
+                login(request, response);
                 break;
             case "update":
                 updateUser(request, response);
@@ -171,6 +230,75 @@ public class UserServlet extends HttpServlet {
                 break;
             default:
                 break;
+        }
+    }
+
+    /**
+     * Function: register
+     * Create: HoangPT
+     * Date create: 17/03/2023
+     */
+    private void create(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        String name = request.getParameter("name");
+        String email = request.getParameter("email");
+        String password = request.getParameter("password");
+        String phoneNumber = request.getParameter("phoneNumber");
+        User user = new User(name, email, password, phoneNumber);
+        List<User> userList = service.findAllUser();
+        boolean flag = true;
+        for (int i = 0; i < userList.size(); i++) {
+            if (userList.get(i).getEmail().equals(email)) {
+                flag = false;
+                request.setAttribute("registerFail", "Email đã tồn tại");
+                request.getRequestDispatcher("/user/register.jsp").forward(request, response);
+                break;
+            }
+        }
+        // lấy userList rồi so sánh email, nếu trùng  thì quay lại login, thông báo đã trùng email
+
+        if (flag) {
+            service.register(user);
+            response.sendRedirect("/computer");
+        }
+    }
+
+    /**
+     * Function: login
+     * Create: HoangPT
+     * Date create: 17/03/2023
+     */
+    private void login(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String email = request.getParameter("email");
+        String password = request.getParameter("password");
+        User user = service.login(email, password);
+        if (user == null) {
+            try {
+                request.setAttribute("loginFail", "Đăng nhập thất bại");
+                request.getRequestDispatcher("/user/login.jsp").forward(request, response);
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (ServletException e) {
+                e.printStackTrace();
+            }
+        } else {
+            try {
+                HttpSession httpSession = request.getSession();
+                httpSession.setAttribute("emailAccount", email);
+                httpSession.setAttribute("nameAccount", user);
+                Cookie cookie2 = new Cookie("email", user.getEmail());
+                cookie2.setMaxAge(3600);
+                response.addCookie(cookie2);
+                Cookie cookie3 = new Cookie("password", user.getPassword());
+                cookie3.setMaxAge(3600);
+                response.addCookie(cookie3);
+                if (user.getEmail().equals("admin@gmail.com")) {
+                    response.sendRedirect("/user");
+                } else {
+                    response.sendRedirect("/computer");
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -189,7 +317,7 @@ public class UserServlet extends HttpServlet {
         String name = request.getParameter("name");
         String email = request.getParameter("email");
         String password = request.getParameter("password");
-        String phoneNumber= request.getParameter("phoneNumber");
+        String phoneNumber = request.getParameter("phoneNumber");
         User user = new User(idUser, name, email, password, phoneNumber);
         if (user == null) {
             try {

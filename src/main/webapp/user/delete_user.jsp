@@ -14,8 +14,8 @@
 </head>
 <body class="container-lg p-4">
 <form class="container-md" method="post">
-    <fieldset>
         <h3 class="text-center text-uppercase mb-4">delete user</h3>
+        <button style="margin-left: 158px; margin-bottom: 20px" class="btn btn-outline-danger"><a style="text-decoration: none" href="/user">Back to user list</a></button>
 <table class="table w-75 bg-gradient table-bordered border-primary m-auto">
     <tbody>
     <tr>
@@ -69,7 +69,6 @@
             </div>
         </td>
     </tr>
-    </fieldset>
 </form>
 </body>
 </html>
