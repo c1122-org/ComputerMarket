@@ -11,22 +11,25 @@
 <script src="../bootstrap-5.1.3-dist/js/bootstrap.min.js"></script>
 <html>
 <head>
-    <title>Title</title>
+  <title>Title</title>
 </head>
 <body>
-<div class="row">
-    <div class="col-8" style="width: 60% ">
-        <img src="/img/1.jpg" class="card-img-top" alt="...">
-    </div>
-    <div class="col-4" style="width: 40%">
 
-                <p>ID : ${computer.id}</p>
-                <p>NAME : ${computer.name}</p>
-                <p>PRICE : ${computer.producer}</p>
-                <p>COUNTRY : ${computer.country}</p>
-                <p>DERSCRIBE : ${computer.describe}</p>
-    </div>
+<div class="row text-primary m-1">
+  <div class="col-6">
+    <h1 class="text-danger">Thông tin chi tiết</h1>
+    <h4>Mã sản phẩm : ${computer.idPc}</h4>
+    <h4>Tên : ${computer.name}</h4>
+    <h4>Giá : ${computer.price}</h4>
+    <h4>Nhà sản xuất : ${computer.producer}</h4>
+    <h4>Xuất xứ : ${computer.country}</h4>
+    <h4>Mô tả : ${computer.describe}</h4>
+    <h4>Tên người đăng : ${computer.user.name}</h4>
+    <h4>Số điện thoại liên hệ : ${computer.user.phoneNumber}</h4>
+  </div>
+  <div class="col-6">
+    <img alt="..." height="390px" class="card-img-top" src="${computer.img}">
+  </div>
 </div>
-
 </body>
 </html>

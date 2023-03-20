@@ -1,23 +1,6 @@
 package com.example.computermarket.Service;
 
 import com.example.computermarket.Model.User;
-
-import com.example.computermarket.Repository.IUserRepository;
-import com.example.computermarket.Repository.UserRepository;
-
-public class UserService implements  IUserService{
-    IUserRepository iUserRepository=new UserRepository();
-    @Override
-    public void register(User user) {
-        iUserRepository.register(user);
-    }
-
-    @Override
-    public User login(String email, String password) {
-        return iUserRepository.login(email, password);
-
-import com.example.computermarket.Repository.ComputerRepository;
-import com.example.computermarket.Repository.IComputerRepository;
 import com.example.computermarket.Repository.IUserRepository;
 import com.example.computermarket.Repository.UserRepository;
 
@@ -38,12 +21,12 @@ public class UserService implements IUserService {
 
     @Override
     public User findUserById(int id) {
-        return null;
+        return repository.findUserById(id);
     }
 
     @Override
-    public User findUserByName(int name) {
-        return null;
+    public List<User> findUserByName(String name) {
+        return repository.findUserByName(name);
     }
 
     @Override
@@ -53,11 +36,12 @@ public class UserService implements IUserService {
 
     @Override
     public void delete(int id) {
-
+        repository.delete(id);
     }
 
     @Override
-    public void sortByName() {
-
+    public List<User> sortByName() {
+  return repository.sortByName();
     }
+
 }

@@ -1,6 +1,7 @@
 package com.example.computermarket.Controller;
 
 import com.example.computermarket.Model.Computer;
+import com.example.computermarket.Model.User;
 import com.example.computermarket.Service.ComputerService;
 import com.example.computermarket.Service.IComputerService;
 
@@ -14,182 +15,243 @@ import java.util.List;
 
 @WebServlet(name = "ComputerServlet", urlPatterns = "/computer")
 public class ComputerServlet extends HttpServlet {
-    ComputerService computerService = new ComputerService();
+    IComputerService computerService = new ComputerService();
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String actionComputer = request.getParameter("action");
-        if (actionComputer == null){
+        if (actionComputer == null) {
             actionComputer = "";
         }
-        try {
-            switch (actionComputer){
-                case "detail":
-                    showComputerDetail(request,response);
-                    break;
-                case "delete":
-                    deleteComputer(request,response);
-                    break;
-                default:
-                    listComputer(request,response);
-                    break;
+        switch (actionComputer) {
+            case "detail":
+                showComputerDetail(request, response);
+                break;
+            case "delete":
+                deleteComputer(request, response);
+                break;
+            case "create":
+                showCreateComputer(request, response);
+                break;
+            case "update":
+                showUpdateComputer(request, response);
+                break;
+            case "sort":
+                sortByProducer(request, response);
+                break;
+            default:
+                listComputer(request, response);
+                break;
         }
-        }catch (RuntimeException e){
-            e.printStackTrace();
-        } catch (SQLException e) {
+    }
+
+    private void sortByProducer(HttpServletRequest request, HttpServletResponse response) {
+        List<Computer> computerList = computerService.sortByProduct();
+        request.setAttribute("computerList", computerList);
+        try {
+            request.getRequestDispatcher("/computer/list_computer.jsp").forward(request, response);
+        } catch (ServletException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
+    private void showUpdateComputer(HttpServletRequest request, HttpServletResponse response) {
+        int idPc = Integer.parseInt(request.getParameter("idPc"));
+        Computer computer = computerService.findById(idPc);
+        if (computer == null) {
+            try {
+                response.sendRedirect("/computer/error-404.jsp");
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        } else {
+            request.setAttribute("computer", computer);
+            try {
+                request.getRequestDispatcher("/computer/update.jsp").forward(request, response);
+            } catch (ServletException e) {
+                throw new RuntimeException(e);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+    private void showCreateComputer(HttpServletRequest request, HttpServletResponse response) {
+        try {
+            response.sendRedirect("/computer/create.jsp");
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
     private void deleteComputer(HttpServletRequest request, HttpServletResponse response) {
-        int id = Integer.parseInt(request.getParameter("id"));
+        int id = Integer.parseInt(request.getParameter("idPc"));
         computerService.deleteComputer(id);
-    }
-
-    private void showComputerDetail(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException, ServletException {
-        int id = Integer.parseInt(request.getParameter("id"));
-        Computer computer = computerService.findById(id);
-        request.setAttribute("computer",computer);
-        request.getRequestDispatcher("/computer/detail.jsp").forward(request,response);
-    }
-
-    private void listComputer(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         List<Computer> computerList = computerService.findAll();
-        request.setAttribute("computerList",computerList);
-        request.getRequestDispatcher("/computer/list_computer.jsp").forward(request,response);
-    }
-
-    private void computerDetail(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
-        int id = Integer.parseInt(request.getParameter("id"));
-        Computer computer = computerService.findById(id);
-        request.setAttribute("computer",computer);
-        request.getRequestDispatcher("/computer/detail.jsp").forward(request,response);
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String action = request.getParameter("action");
-        if (action == null){
-            action = "";
-        }
+        request.setAttribute("computerList", computerList);
         try {
-            switch (action){
-                case "detail":
-                    computerDetail(request,response);
-                    break;
-            }
-        } catch (SQLException e) {
+            request.getRequestDispatcher("/computer/list_computer.jsp").forward(request, response);
+        } catch (ServletException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
-@WebServlet(name = "ComputerServlet", urlPatterns = "/computer")
-public class ComputerServlet extends HttpServlet {
-    IComputerService iComputerService = new ComputerService();
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String actionComputer = request.getParameter("actionComputer");
-            if (actionComputer == null){
-                actionComputer = "";
-            }
-            switch (actionComputer){
-                case "create":
-                    computerCreate(request, response);
-                    break;
-                case "update":
-                    computerUpdate(request, response);
-                    break;
-            }
     }
 
-    private void computerUpdate(HttpServletRequest request, HttpServletResponse response) {
-        String name = request.getParameter("name");
-        double price = Double.parseDouble(request.getParameter("price"));
-        String producer = request.getParameter("producer");
-        String country = request.getParameter("country");
-        String describe = request.getParameter("describe");
-        String img = request.getParameter("img");
-        int id = Integer.parseInt(request.getParameter("id"));
-        Computer computer = iComputerService.findById(id);
-        computer.setName(name);
-        computer.setPrice(price);
-        computer.setProducer(producer);
-        computer.setCountry(country);
-        computer.setDescribe(describe);
-        computer.setImg(img);
-        iComputerService.update(computer);
+    private void showComputerDetail(HttpServletRequest request, HttpServletResponse response) {
+        int id = Integer.parseInt(request.getParameter("idPc"));
+        Computer computer = computerService.findById(id);
+        request.setAttribute("computer", computer);
         try {
-            response.sendRedirect("/computer");
+            request.getRequestDispatcher("/computer/detail.jsp").forward(request, response);
+        } catch (ServletException e) {
+            throw new RuntimeException(e);
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 
-    private void computerCreate(HttpServletRequest request, HttpServletResponse response) {
-        int id = Integer.parseInt(request.getParameter("id"));
-        String name = request.getParameter("name");
-        double price = Double.parseDouble(request.getParameter("price"));
-        String producer = request.getParameter("producer");
-        String country = request.getParameter("country");
-        String describe = request.getParameter("describe");
-        String img = request.getParameter("img");
-        Computer computer = new Computer(id,name,price,producer,country,describe,img);
-        iComputerService.create(computer);
+//    private void listComputer(HttpServletRequest request, HttpServletResponse response) {
+//        List<Computer> computerList = computerService.findAll();
+//        request.setAttribute("computerList", computerList);
+//        try {
+//            request.getRequestDispatcher("/computer/list_computer.jsp").forward(request, response);
+//        } catch (ServletException e) {
+//            throw new RuntimeException(e);
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
+//    }
+    private void listComputer(HttpServletRequest request, HttpServletResponse response) {
+        List<Computer> computerListUser = computerService.findAllPcUser();
+        request.setAttribute("computerList", computerListUser);
         try {
-            response.sendRedirect("/computer");
+            request.getRequestDispatcher("/computer/list_computer.jsp").forward(request, response);
+        } catch (ServletException e) {
+            throw new RuntimeException(e);
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void computerDetail(HttpServletRequest request, HttpServletResponse response) {
+        int id = Integer.parseInt(request.getParameter("id"));
+        Computer computer = computerService.findById(id);
+        request.setAttribute("computer", computer);
+        try {
+            request.getRequestDispatcher("/computer/detail.jsp").forward(request, response);
+        } catch (ServletException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String actionComputer = request.getParameter("actionComputer");
-            if (actionComputer == null){
-                actionComputer = "";
-            }
-            switch (actionComputer){
-                case "create":
-                    computerCreateForm(request, response);
-                    break;
-                case "update":
-                    computerUpdateForm(request, response);
-                    break;
-            }
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws
+            ServletException, IOException {
+        String action = request.getParameter("action");
+        if (action == null) {
+            action = "";
+        }
+        switch (action) {
+            case "detail":
+                computerDetail(request, response);
+                break;
+            case "create":
+                createComputer(request, response);
+                break;
+            case "update":
+                UpdateComputer(request, response);
+                break;
+            case "search":
+                searchByProducer(request, response);
+                break;
+            default:
+                listComputer(request, response);
+                break;
+        }
     }
 
-    private void computerUpdateForm(HttpServletRequest request, HttpServletResponse response) {
-        int id = Integer.parseInt(request.getParameter("id"));
+    private void searchByProducer(HttpServletRequest request, HttpServletResponse response) {
+        String producer = request.getParameter("producer");
+        List<Computer> computerList = computerService.findByProducer(producer);
+
+        if (computerList.isEmpty()) {
+//            request.setAttribute("message", "Not Found");
+            try {
+                request.getRequestDispatcher("/computer/list_computer.jsp").forward(request, response);
+            } catch (ServletException e) {
+                throw new RuntimeException(e);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        } else {
+            try {
+                request.setAttribute("computerList", computerList);
+                request.getRequestDispatcher("/computer/list_computer.jsp").forward(request, response);
+            } catch (ServletException e) {
+                throw new RuntimeException(e);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+    private void UpdateComputer(HttpServletRequest request, HttpServletResponse response) {
+        int idPc = Integer.parseInt(request.getParameter("idPc"));
         String name = request.getParameter("name");
-        double price = Double.parseDouble(request.getParameter("price"));
+        String price = request.getParameter("price");
         String producer = request.getParameter("producer");
         String country = request.getParameter("country");
         String describe = request.getParameter("describe");
         String img = request.getParameter("img");
-        Computer computer = new Computer(id,name,price,producer,country,describe,img);
-        iComputerService.update(computer);
-        request.setAttribute("computer",computer);
-        request.setAttribute("message","Create success");
-        try {
-            request.getRequestDispatcher("/computer/update.jsp").forward(request,response);
-        } catch (ServletException | IOException e) {
-            e.printStackTrace();
+        Computer computer = new Computer(idPc, name, price, producer, country, describe, img);
+        System.out.println(computer);
+        if (computer == null) {
+            try {
+                response.sendRedirect("/computer/error-404.jsp");
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        } else {
+            computerService.update(computer);
+            request.setAttribute("computer", computer);
+            request.setAttribute("message", "Update successful");
+            try {
+                request.getRequestDispatcher("/computer/update.jsp").forward(request, response);
+            } catch (ServletException e) {
+                throw new RuntimeException(e);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 
-    private void computerCreateForm(HttpServletRequest request, HttpServletResponse response) {
+    private void createComputer(HttpServletRequest request, HttpServletResponse response) {
         String name = request.getParameter("name");
-        double price = Double.parseDouble(request.getParameter("price"));
+        String price = request.getParameter("price");
         String producer = request.getParameter("producer");
         String country = request.getParameter("country");
         String describe = request.getParameter("describe");
         String img = request.getParameter("img");
-        Computer computer = new Computer(name,price,producer,country,describe,img);
-        iComputerService.create(computer);
-        request.setAttribute("message","Create success");
-        request.setAttribute("computer",computer);
+        int idUser = 1;
+        Computer computer = new Computer(name, price, producer, country, describe, img, idUser);
+        computerService.create(computer);
+        request.setAttribute("message", "Create successful");
+        request.setAttribute("computer", computer);
         try {
-            request.getRequestDispatcher("/computer/create.jsp").forward(request,response);
-        } catch (IOException | ServletException e) {
-            e.printStackTrace();
+            request.getRequestDispatcher("/computer/create.jsp").forward(request, response);
+        } catch (ServletException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
+        request.setAttribute("computer", computer);
     }
 }
+
