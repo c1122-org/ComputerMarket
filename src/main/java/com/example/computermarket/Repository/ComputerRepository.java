@@ -20,6 +20,11 @@ public class ComputerRepository implements IComputerRepository {
     private static final String SORT_BY_PRODUCER = "SELECT * FROM pc ORDER BY producer_pc";
     private static final String JOIN_USER_PC = "SELECT pc.id_pc, pc.name_pc, pc.price_pc, pc.producer_pc, pc.country_pc, pc.describe_pc, pc.img_pc, user.name, user.phone_number from pc inner join user on pc.id_user = user.id_user;";
 
+    /**
+     * Function: create computer
+     * Create: DaoPTA
+     * Date create: 17/03/2023
+     */
     @Override
     public void create(Computer computer) {
         Connection connection = DBConnection.getConnection();
@@ -47,6 +52,12 @@ public class ComputerRepository implements IComputerRepository {
             }
         }
     }
+
+    /**
+     * Function: update computer
+     * Create: DaoPTA
+     * Date create: 18/03/2023
+     */
 
     @Override
     public void update(Computer computer) {

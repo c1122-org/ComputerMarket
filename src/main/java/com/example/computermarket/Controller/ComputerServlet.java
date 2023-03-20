@@ -57,7 +57,21 @@ public class ComputerServlet extends HttpServlet {
         }
     }
 
-
+    /**
+     * Function: update computer
+     * Create: DaoPTA
+     * Date create: 18/03/2023
+     * @param request   an {@link HttpServletRequest} object that
+     *                  contains the request the client has made
+     *                  of the servlet
+     *
+     * @param response  an {@link HttpServletResponse} object that
+     *                  contains the response the servlet sends
+     *                  to the client
+     *
+     * @throws ServletException
+     * @throws IOException
+     */
     private void showUpdateComputer(HttpServletRequest request, HttpServletResponse response) {
         int idPc = Integer.parseInt(request.getParameter("idPc"));
         Computer computer = computerService.findById(idPc);
@@ -79,6 +93,19 @@ public class ComputerServlet extends HttpServlet {
         }
     }
 
+    /**
+     * Function: create computer
+     * Create: Anh Dao
+     * Date create: 17/03/2023
+     * @param request   {@link HttpServletRequest}
+     *
+     * @param response  an {@link HttpServletResponse} object that
+     *                  contains the response the servlet sends
+     *                  to the client
+     *
+     * @throws ServletException
+     * @throws IOException
+     */
     private void showCreateComputer(HttpServletRequest request, HttpServletResponse response) {
         try {
             response.sendRedirect("/computer/create.jsp");
@@ -202,6 +229,21 @@ public class ComputerServlet extends HttpServlet {
         }
     }
 
+    /**
+     * Function: update computer
+     * Create: DaoPTA
+     * Date create: 18/03/2023
+     * @param request   an {@link HttpServletRequest} object that
+     *                  contains the request the client has made
+     *                  of the servlet
+     *
+     * @param response  an {@link HttpServletResponse} object that
+     *                  contains the response the servlet sends
+     *                  to the client
+     *
+     * @throws ServletException
+     * @throws IOException
+     */
     private void UpdateComputer(HttpServletRequest request, HttpServletResponse response) {
         int idPc = Integer.parseInt(request.getParameter("idPc"));
         String name = request.getParameter("name");
@@ -232,6 +274,21 @@ public class ComputerServlet extends HttpServlet {
         }
     }
 
+    /**
+     * Function: create computer
+     * Create: Anh Dao
+     * Date create: 17/03/2023
+     * @param request   an {@link HttpServletRequest} object that
+     *      *                  contains the request the client has made
+     *      *                  of the servlet
+     *
+     * @param response  an {@link HttpServletResponse} object that
+     *                  contains the response the servlet sends
+     *                  to the client
+     *
+     * @throws ServletException
+     * @throws IOException
+     */
     private void createComputer(HttpServletRequest request, HttpServletResponse response) {
         String name = request.getParameter("name");
         String price = request.getParameter("price");
